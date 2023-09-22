@@ -11,26 +11,27 @@ def index(request):
     return render(request, 'index.html')
 
 # AUTH
-def login(request):
+def inicio_sesion(request):
     if request.method == 'POST':
-        # usuario = request.POST.get('usuario')
-        # clave = request.POST.get('pass')
-        # user = authenticate(request, username=usuario, password=clave)
-        # if user is not None:
-        #     profile = UserProfile.objects.get(user=user)
-        #     request.session['perfil'] = profile.role
+        usuario = request.POST.get('usuario')
+        clave = request.POST.get('pass')
+        user = authenticate(request, username=usuario, password=clave)
+        if user is not None:
+            profile = UserProfile.objects.get(user=user)
+            request.session['perfil'] = profile.role
             
-        #     login(request, user)
-        return redirect('home')
-        # else:
-        #     context = {
-        #         'error' : 'Error intente nuevamente.'
-        #     }
-        #     return render(request, 'auth/inicio_sesion.html', context)
+            login(request, user)   
+            return redirect('home')
+        else:
+            context = {
+                'error' : 'Error intente nuevamente.'
+            }
+            return render(request, 'auth/index.html', context)
     
     return render(request, 'auth/index.html')
 
 def cerrar_sesion(request):
+    logout(request)
     return redirect('index')
 
 def registar(request):
@@ -48,13 +49,35 @@ def registar(request):
         
         messages.success(request, 'Creado correctamente')
         
-        return redirect('index')
+        return redirect('login')
     
     return render(request, 'auth/create.html')
 
+def recuperar(request):
+    if request.method == 'POST':
+        correo = request.POST.get('correo')
+        nueva_contraseña = "123123"
+        
+        try:
+            usuario = User.objects.get(email=correo)
+            # Actualizar la contraseña utilizando set_password
+            usuario.set_password(nueva_contraseña)
+            usuario.save()
+            messages.success(request, 'Contraseña actualizada correctamente.')
+            return redirect('recuperar')
+        except User.DoesNotExist:
+            messages.error(request, 'No se encontró ningún usuario con ese correo electrónico.')
+        
+    return render(request, 'auth/recuperar.html')
+
 # SISTEMA
 def home(request):
-    return render(request, 'home.html')
+    perfil = request.session.get('perfil') 
+    context = {
+        'perfil' : perfil,
+    }
+    
+    return render(request, 'home.html', context)
 
 def admin(request):
     return render(request, 'administrador/index.html')

@@ -18,10 +18,13 @@
             <div class="card">
                 <div class="card-body">
                 <p class="fw-light text-center">
+                    Iniciar Sesión <br>
                     <strong>📚 megabiblioteca.cl 📚</strong> 
                 </p>
                 <form action="{% url 'login' %}" method="POST">
                     {% csrf_token %}
+
+                    {% include 'layouts/_alert.html' %}
 
                     {% if error %}
                         <small class="text-danger">{{ error }}</small>
@@ -34,7 +37,10 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="" class="form-label">Contraseña</label>
+                        <div class="mb-3 d-flex justify-content-between align-items-center">
+                            <label for="pass" class="mb-0">Contraseña</label>
+                            <a href="{% url 'recuperar' %}" class="text-end">Recuperar contraseña</a>
+                        </div>
                         <input type="password" class="form-control" name="pass" id="pass" required>
                         <small class="text-danger" id="pass-error"></small>
                     </div>
@@ -43,6 +49,8 @@
                         <button type="submit" class="btn btn-warning text-dark"><strong>INICIAR SESIÓN</strong></button>
 
                         <a href="{% url 'registrar' %}" class="btn btn-dark mt-3"><strong>Registar usuario</strong></a>
+
+
                     </div>
                 </form>
             </div>
