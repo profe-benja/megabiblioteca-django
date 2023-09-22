@@ -1,4 +1,4 @@
-{% extends 'layouts/admin/base.html' %}
+{% extends 'layouts/normal/base.html' %}
 {% load static %}
 
 {% block css %}
@@ -29,18 +29,20 @@
 
                     <div class="mb-3">
                         <label for="" class="form-label">Usuario</label>
-                        <input type="text" class="form-control" name="usuario" id="usuario">
+                        <input type="text" class="form-control" name="usuario" id="usuario" required>
                         <small class="text-danger" id="usuario-error"></small>
                     </div>
 
                     <div class="mb-3">
                         <label for="" class="form-label">Contraseña</label>
-                        <input type="password" class="form-control" name="pass" id="pass">
+                        <input type="password" class="form-control" name="pass" id="pass" required>
                         <small class="text-danger" id="pass-error"></small>
                     </div>
             
                     <div class="d-grid">
                         <button type="submit" class="btn btn-warning text-dark"><strong>INICIAR SESIÓN</strong></button>
+
+                        <a href="{% url 'registrar' %}" class="btn btn-dark mt-3"><strong>Registar usuario</strong></a>
                     </div>
                 </form>
             </div>
