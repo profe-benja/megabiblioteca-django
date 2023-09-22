@@ -1,16 +1,40 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Libro, Pedido, EstadoPedido
+from .models import Libro, Pedido
 
 # inicio de todo
 def index(request):
     return render(request, 'index.html')
 
 # AUTH
-def inicio_sesion(request):
-    return render(request, 'biblioteca/index.html')
+def login(request):
+    if request.method == 'POST':
+        # usuario = request.POST.get('usuario')
+        # clave = request.POST.get('pass')
+        # user = authenticate(request, username=usuario, password=clave)
+        # if user is not None:
+        #     profile = UserProfile.objects.get(user=user)
+        #     request.session['perfil'] = profile.role
+            
+        #     login(request, user)
+        return redirect('home')
+        # else:
+        #     context = {
+        #         'error' : 'Error intente nuevamente.'
+        #     }
+        #     return render(request, 'auth/inicio_sesion.html', context)
+    
+    return render(request, 'auth/index.html')
 
 def cerrar_sesion(request):
-    return render(request, 'biblioteca/index.html')
+    return redirect('index')
+
+# SISTEMA
+def home(request):
+    return render(request, 'home.html')
+
+def admin(request):
+    return render(request, 'admin/index.html')
+
 
 # USUARIO
 

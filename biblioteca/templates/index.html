@@ -1,0 +1,142 @@
+{% extends 'layouts/normal/base.html' %}
+{% load static %}
+
+{% block css %}
+
+<style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+
+    .b-example-divider {
+      width: 100%;
+      height: 3rem;
+      background-color: rgba(0, 0, 0, .1);
+      border: solid rgba(0, 0, 0, .15);
+      border-width: 1px 0;
+      box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+    }
+
+    .b-example-vr {
+      flex-shrink: 0;
+      width: 1.5rem;
+      height: 100vh;
+    }
+
+    .bi {
+      vertical-align: -.125em;
+      fill: currentColor;
+    }
+
+    .nav-scroller {
+      position: relative;
+      z-index: 2;
+      height: 2.75rem;
+      overflow-y: hidden;
+    }
+
+    .nav-scroller .nav {
+      display: flex;
+      flex-wrap: nowrap;
+      padding-bottom: 1rem;
+      margin-top: -1px;
+      overflow-x: auto;
+      text-align: center;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .btn-bd-primary {
+      --bd-violet-bg: #712cf9;
+      --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+
+      --bs-btn-font-weight: 600;
+      --bs-btn-color: var(--bs-white);
+      --bs-btn-bg: var(--bd-violet-bg);
+      --bs-btn-border-color: var(--bd-violet-bg);
+      --bs-btn-hover-color: var(--bs-white);
+      --bs-btn-hover-bg: #6528e0;
+      --bs-btn-hover-border-color: #6528e0;
+      --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+      --bs-btn-active-color: var(--bs-btn-hover-color);
+      --bs-btn-active-bg: #5a23c8;
+      --bs-btn-active-border-color: #5a23c8;
+    }
+
+    .bd-mode-toggle {
+      z-index: 1500;
+    }
+
+    .bd-mode-toggle .dropdown-menu .active .bi {
+      display: block !important;
+    }
+</style>
+
+{% endblock %}
+
+{% block contenido %}
+
+<div class="navbar navbar-dark bg-dark shadow-sm">
+  <div class="container">
+    <a href="#" class="navbar-brand d-flex align-items-center">
+      <strong>📚 megabiblioteca.cl 📚</strong>
+    </a>
+    <a type="button" class="btn btn-sm btn-primary" href="{% url 'login' %}">Iniciar sesión</a>
+
+    {% comment %} <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button> {% endcomment %}
+  </div>
+</div>
+
+<main>
+
+<header class="bg-warning text-dark text-center py-5">
+    <h1 class="display-4">📚 <strong>Megabiblioteca</strong> 📚</h1>
+    <p class="lead">Tu Destino Literario en Línea</p>
+</header>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Descubre un Mundo de Libros</h2>
+            <p>Nuestro extenso catálogo te llevará en un viaje literario sin fin. Desde los bestsellers más recientes hasta los clásicos intemporales, desde novelas emocionantes hasta recursos educativos, Megabiblioteca lo tiene todo. Cada libro es cuidadosamente seleccionado para satisfacer una amplia variedad de intereses y gustos.</p>
+        </div>
+        <div class="col-md-4">
+            <img src="{% static 'img/pexels-eneida-nieves-1222551.jpg' %}" alt="Librería" class="img-fluid rounded">
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4">
+            <img  src="{% static 'img/pexels-malte-luk-1848924.jpg' %}" alt="Comodidad" class="img-fluid rounded">
+        </div>
+        <div class="col-md-8">
+            <h2>Comodidad en Tus Manos</h2>
+            <p>En Megabiblioteca, creemos en la comodidad. Puedes explorar y comprar libros en línea desde la comodidad de tu hogar o desde cualquier lugar en el que te encuentres. Ofrecemos libros en formato digital y físico, para que puedas elegir cómo prefieres disfrutar de tus lecturas.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Agrega más secciones con recomendaciones personalizadas, comunidad literaria y compra con confianza -->
+
+<footer class="bg-dark text-white text-center py-3 mt-5">
+    <p>&copy; 2023 Megabiblioteca - Todos los derechos reservados</p>
+</footer>
+
+
+</main>
+
+{% endblock %}
