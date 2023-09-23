@@ -1,10 +1,17 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Libro, Pedido, UserProfile
+from .models import Libro, Pedido, UserProfile, Categoria
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .decorators import role_required
 from django.contrib.auth.models import User
 from django.contrib import messages
+
+
+# RANDOM DATA
+from faker import Faker
+from django.contrib.auth import get_user_model
+from django.conf import settings
+import random
 
 # inicio de todo
 def index(request):
@@ -30,6 +37,7 @@ def inicio_sesion(request):
     
     return render(request, 'auth/index.html')
 
+@login_required
 def cerrar_sesion(request):
     logout(request)
     return redirect('index')
@@ -71,6 +79,7 @@ def recuperar(request):
     return render(request, 'auth/recuperar.html')
 
 # SISTEMA
+@login_required
 def home(request):
     perfil = request.session.get('perfil') 
     context = {
@@ -108,3 +117,60 @@ def solicitar_libro(request, libro_id):
     libro = get_object_or_404(Libro, pk=libro_id)
     # Aquí puedes manejar la lógica de solicitud de libros
     return redirect('lista_libros')
+
+
+
+def data(request):
+    fake = Faker()
+    # Obtén la lista de roles disponibles en tus ajustes
+    roles = [role[0] for role in settings.ROLES]
+
+    # Crea usuarios de ejemplo con roles
+    for _ in range(10):
+        username = fake.user_name()
+        email = fake.email()
+        # password = fake.password()
+        password = '123456'
+        role = random.choice(roles)
+
+        user = get_user_model().objects.create_user(username=username, email=email, password=password)
+        UserProfile.objects.create(user=user, role=role)
+
+    # Crea categorías de ejemplo
+    for _ in range(5):
+        nombre_categoria = fake.word()
+        Categoria.objects.create(nombre=nombre_categoria)
+
+    # Crea libros de ejemplo relacionados con categorías
+    categorias = Categoria.objects.all()
+    for _ in range(20):
+        nombre_libro = fake.sentence()
+        codigo_libro = fake.unique.random_number()
+        descripcion_libro = fake.paragraph()
+        categoria_libro = random.choice(categorias)
+        stock_libro = random.randint(1, 100)
+
+        Libro.objects.create(
+            nombre=nombre_libro,
+            codigo=codigo_libro,
+            descripcion=descripcion_libro,
+            categoria=categoria_libro,
+            stock=stock_libro,
+        )
+
+    # Crea pedidos de ejemplo relacionados con libros y usuarios
+    libros = Libro.objects.all()
+    usuarios = get_user_model().objects.all()
+    for _ in range(30):
+        libro_pedido = random.choice(libros)
+        cliente_pedido = random.choice(usuarios)
+        estado_pedido = random.randint(1, 3)
+
+        Pedido.objects.create(
+            libro=libro_pedido,
+            cliente=cliente_pedido,
+            estado=estado_pedido,
+        )
+
+    messages.success(request, 'Datos creados correctamente')
+    return redirect('index')

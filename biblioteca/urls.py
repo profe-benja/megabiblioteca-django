@@ -11,5 +11,9 @@ urlpatterns = [
     path('home', views.home, name='home'),
 
     path('administrador', views.admin, name='admin'),
+    
+    
+    path('data', views.data, name='data'),
+    
 
 ]
