@@ -82,8 +82,11 @@ def recuperar(request):
 @login_required
 def home(request):
     perfil = request.session.get('perfil') 
+    libros = Libro.objects.all()
+    
     context = {
         'perfil' : perfil,
+        'libros' : libros
     }
     
     return render(request, 'home.html', context)
@@ -122,9 +125,22 @@ def solicitar_libro(request, libro_id):
 
 def data(request):
     fake = Faker()
-    # Obtén la lista de roles disponibles en tus ajustes
     roles = [role[0] for role in settings.ROLES]
 
+    # Limpiar datos existentes si es necesario
+    User.objects.all().delete()
+    UserProfile.objects.all().delete()
+    Categoria.objects.all().delete()
+    Libro.objects.all().delete()
+    Pedido.objects.all().delete()
+    
+    # crea 2 usuarios
+    user = get_user_model().objects.create_user(username="admin", email="admin@gmail.com", password="12345")
+    UserProfile.objects.create(user=user, role='admin')
+    
+    user = get_user_model().objects.create_user(username="cliente", email="cliente@gmail.com", password="12345")
+    UserProfile.objects.create(user=user, role='cliente')
+    
     # Crea usuarios de ejemplo con roles
     for _ in range(10):
         username = fake.user_name()
@@ -143,12 +159,15 @@ def data(request):
 
     # Crea libros de ejemplo relacionados con categorías
     categorias = Categoria.objects.all()
+    nombres_de_imagen = ['img/libro1.png', 'img/libro2.png']
+
     for _ in range(20):
         nombre_libro = fake.sentence()
         codigo_libro = fake.unique.random_number()
         descripcion_libro = fake.paragraph()
         categoria_libro = random.choice(categorias)
         stock_libro = random.randint(1, 100)
+        imagen = random.choice(nombres_de_imagen)
 
         Libro.objects.create(
             nombre=nombre_libro,
@@ -156,6 +175,7 @@ def data(request):
             descripcion=descripcion_libro,
             categoria=categoria_libro,
             stock=stock_libro,
+            imagen=imagen,
         )
 
     # Crea pedidos de ejemplo relacionados con libros y usuarios

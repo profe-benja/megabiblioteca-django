@@ -19,7 +19,7 @@ class Libro(models.Model):
     nombre = models.CharField(max_length=200)
     codigo = models.CharField(max_length=20, unique=True)
     descripcion = models.TextField()
-    imagen = models.ImageField(upload_to='libros/')
+    imagen = models.ImageField(upload_to='libros/', null=True, blank=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     stock = models.IntegerField(default=1)
 
