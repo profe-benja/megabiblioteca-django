@@ -121,8 +121,30 @@ def solicitar_libro(request, libro_id):
     # Aquí puedes manejar la lógica de solicitud de libros
     return redirect('lista_libros')
 
+# GET - POST /libro/
+def lista_libro(request):
+    if request.method == 'GET':
+        libros = Libro.objects.all() # select * from libro
+        context = {
+            'libros' : libros
+        }
+        
+        return render(request, 'libro.index', context)
+    
+    # elif request.method == 'POST':
+    #     data = JSONParser().parse(request)
+    #     serializer = LibroSerializer(data=data)
+        
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    #     else:
+    #         print('error', serializer.errors)
+    #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
 
 
+# guardar datos
 def data(request):
     fake = Faker()
     roles = [role[0] for role in settings.ROLES]
@@ -159,15 +181,16 @@ def data(request):
 
     # Crea libros de ejemplo relacionados con categorías
     categorias = Categoria.objects.all()
-    nombres_de_imagen = ['img/libro1.png', 'img/libro2.png']
 
+    # images = ['img/libro1.png', 'img/libro2.png', 'img/libro3.png', 'img/libro4.png', 'img/libro5.png', 'img/libro6.png', 'img/libro7.png', 'img/libro8.png', 'img/libro9.png', 'img/libro10.png'']
+    
     for _ in range(20):
         nombre_libro = fake.sentence()
         codigo_libro = fake.unique.random_number()
         descripcion_libro = fake.paragraph()
         categoria_libro = random.choice(categorias)
         stock_libro = random.randint(1, 100)
-        imagen = random.choice(nombres_de_imagen)
+        imagen = 'img/libro' + str(random.randint(1, 10)) + '.png'
 
         Libro.objects.create(
             nombre=nombre_libro,

@@ -12,6 +12,9 @@ urlpatterns = [
 
     path('administrador', views.admin, name='admin'),
     
+    # LIBRO
+    path('libro/', views.lista_libro, name='lista_libro'),
+    # path('libro/<id>', views.vista_libro, name='vista_libro'),
     
     path('data', views.data, name='data'),
 ]

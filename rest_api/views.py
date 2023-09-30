@@ -13,11 +13,8 @@ from rest_framework import status
 @api_view(['GET', 'POST']) 
 def lista_libro(request):
     if request.method == 'GET':
-        
         libros = Libro.objects.all() # select * from libro
-        print(libros)
         serializer = LibroSerializer(libros, many=True)
-        print(serializer.data)
         return Response(serializer.data)
     
     elif request.method == 'POST':
@@ -30,7 +27,6 @@ def lista_libro(request):
         else:
             print('error', serializer.errors)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
         
 @csrf_exempt
 @api_view(['GET','PUT','DELETE'])   
