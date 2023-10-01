@@ -11,7 +11,8 @@ class UserProfile(models.Model):
 
 class Categoria(models.Model):
     nombre = models.CharField(max_length=100)
-    
+    url = models.CharField(max_length=100, null=True, blank=True)
+
     def __str__(self):
         return self.nombre
 
@@ -21,6 +22,7 @@ class Libro(models.Model):
     descripcion = models.TextField()
     imagen = models.ImageField(upload_to='libros/', null=True, blank=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
+    autor = models.CharField(max_length=200, null=True, blank=True)
     stock = models.IntegerField(default=1)
 
     def __str__(self):
