@@ -51,3 +51,32 @@ python manage.py runserver
 
 - admin -> 12345
 - cliente -> 12345
+
+
+pip freeze > requirements.txt
+
+
+
+--- 
+
+
+### pip install 
+```bash
+Django==4.2.3
+
+cx-Oracle==8.3.0
+
+django-cors-headers==4.2.0
+
+djangorestframework==3.14.0
+
+Faker==18.10.1
+
+oracledb==1.3.2
+
+Pillow==10.0.0
+
+requests==2.31.0
+
+Unidecode==1.3.7
+```
