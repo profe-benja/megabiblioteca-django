@@ -1,5 +1,5 @@
 from django.shortcuts import redirect
-from .models import Libro, Pedido, UserProfile, Categoria
+from ..models import Libro, Pedido, UserProfile, Categoria
 from django.contrib.auth.models import User
 
 # RANDOM DATA

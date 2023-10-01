@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from . import viewsData
+from .routes import viewsData
 
 urlpatterns = [
   path('', views.index, name='index'),
@@ -15,6 +15,8 @@ urlpatterns = [
   path('home/libro/<codigo>', views.home_libro, name='home_libro'),
 
   path('administrador', views.admin, name='admin'),
+  path('administrador/libro', views.admin_lista_libro, name='admin_lista_libro'),
+  path('administrador/libro/<id>', views.admin_vista_libro, name='admin_vista_libro'),
   # path('administrador/categoria', views.admin_vista_categoria, name='admin_vista_categoria'),
 
   # LIBRO

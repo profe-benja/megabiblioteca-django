@@ -122,17 +122,63 @@ def admin(request):
     return render(request, 'administrador/index.html')
 
 
+
 # USUARIO
 
 # LIBRO
+def lista_libro(request):
+    if request.method == 'GET':
+        libros = Libro.objects.all() # select * from libro
+        serializer = LibroSerializer(libros, many=True)
+
+        for libro_data in serializer.data:
+          libro_data['imagen'] = settings.BASE_URL + '/static' + libro_data['imagen']
+
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = LibroSerializer(data=data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            print('error', serializer.errors)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+def vista_libro(request, id):
+    libro = Libro.objects.get_object_or_404(id=id)
+
+        # return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+      context = {
+        'libro' : libro
+      }
+      return render(request, 'biblioteca/libro/show.html', context)
+
+    elif request.method == 'PUT' or request.method == 'PATCH':
+        data = JSONParser().parse(request)
+        serializer = LibroSerializer(libro, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            print('error', serializer.errors)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        libro.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
+
 def lista_libros(request):
     libros = Libro.objects.all()
 
-    context = {
-        'libros' : libros
-    }
 
-    return render(request, 'biblioteca/lista_libros.html', context)
 
 def detalle_libro(request, libro_id):
     libro = get_object_or_404(Libro, pk=libro_id)
