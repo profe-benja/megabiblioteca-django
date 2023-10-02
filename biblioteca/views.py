@@ -118,9 +118,6 @@ def home_libro(request, codigo):
 
     return render(request, 'libro.html', context)
 
-def admin(request):
-    return render(request, 'administrador/index.html')
-
 
 
 # USUARIO

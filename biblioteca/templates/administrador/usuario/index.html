@@ -1,0 +1,37 @@
+{% extends 'layouts/admin/app.html' %}
+{% load static %}
+
+{% block contenido %}
+  <div class="container">
+    <div class="row">
+      <h1 class="mt-2">Usuarios</h1>
+      {% include 'layouts/_alert.html' %}
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Usuarios</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'admin_create_usuario' %}">Nuevo</a>
+        </li>
+      </ul>
+      <div class="card">
+        <table class="table table-bordered mt-4">
+          <thead>
+            <tr>
+              <th scope="col">Nombre de Usuario</th>
+              <th scope="col">Rol</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for usuario in usuarios %}
+              <tr>
+                <td>{{ usuario.user.username }}</td>
+                <td>{{ usuario.role }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}

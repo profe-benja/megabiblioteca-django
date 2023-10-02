@@ -98,7 +98,7 @@
       <a href="#" class="navbar-brand d-flex align-items-center"><strong>📚 megabiblioteca.cl 📚</strong></a>
       <div>
         {% if perfil == 'admin' %}
-          <a type="button" class="btn btn-sm btn-info" href="{% url 'admin' %}">Administrador</a>
+          <a type="button" class="btn btn-sm btn-info" href="{% url 'admin_index' %}">Administrador</a>
         {% endif %}
         <a type="button" class="btn btn-sm btn-danger" href="{% url 'logout' %}">Cerrar sesión</a>
       </div>
