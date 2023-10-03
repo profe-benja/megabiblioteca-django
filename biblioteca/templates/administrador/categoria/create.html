@@ -1,0 +1,28 @@
+{% extends 'layouts/admin/app.html' %}
+{% load static %}
+
+{% block contenido %}
+  <div class="container">
+    <div class="row">
+      {% include 'partials/_back.html' with url='/administrador/categoria' name='Crear Categoría' %}
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <form method="post">
+              {% csrf_token %}
+              <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" required/>
+              </div>
+              {% comment %} <div class="mb-3">
+                <label for="url" class="form-label">URL</label>
+                <input type="text" class="form-control" id="url" name="url" />
+              </div> {% endcomment %}
+              <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

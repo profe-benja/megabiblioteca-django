@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <title>Rick and Morty Character Info</title>
+  </head>
+
+  <body>
+    <div class="container mt-5">
+      <div class="card">
+        <img id="characterImage" class="card-img-top" src="{{ rick.image }}" alt="Character Image" />
+        <div class="card-body">
+          <h5 id="characterName" class="card-title">{{ rick.name }}</h5>
+          <p id="characterStatus" class="card-text">{{ rick.status }}</p>
+          <p id="characterSpecies" class="card-text"></p>
+          <p id="characterGender" class="card-text"></p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

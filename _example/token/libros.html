@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Libros</title>
+  <!-- Agregar los archivos CSS de Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container mt-5">
+    <h1>Lista de Libros</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Código</th>
+          <th>Descripción</th>
+          <th>Imagen</th>
+          <th>Stock</th>
+          <th>Categoría</th>
+        </tr>
+      </thead>
+      <tbody id="tabla-libros">
+        <!-- Aquí se mostrarán los datos de los libros -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // URL de la API
+      const apiUrl = "http://127.0.0.1:8000/api/v1/libro/?format=json";
+
+      // Agrega tu API key aquí
+      const apiKey = "TuApiKeyAqui";
+
+      const tablaLibros = document.getElementById("tabla-libros");
+
+      // Realizar una solicitud GET a la API con la API key
+      fetch(apiUrl, {
+        headers: {
+          "Authorization": `Bearer ${apiKey}` // Asegúrate de ajustar el encabezado de autorización según la API
+        }
+      })
+        .then(response => response.json())
+        .then(data => {
+          // Iterar sobre los datos y crear filas de tabla para cada libro
+          data.forEach(libro => {
+            const fila = document.createElement("tr");
+            fila.innerHTML = `
+              <td>${libro.id}</td>
+              <td>${libro.nombre}</td>
+              <td>${libro.codigo}</td>
+              <td>${libro.descripcion}</td>
+              <td><img src="${libro.imagen}" alt="${libro.nombre}" width="50"></td>
+              <td>${libro.stock}</td>
+              <td>${libro.categoria}</td>
+            `;
+            tablaLibros.appendChild(fila);
+          });
+        })
+        .catch(error => {
+          console.error("Error al obtener los datos:", error);
+        });
+    });
+
+  </script>
+</body>
+
+</html>

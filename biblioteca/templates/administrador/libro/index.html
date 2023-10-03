@@ -1,0 +1,42 @@
+{% extends 'layouts/admin/app.html' %}
+{% load static %}
+
+{% block contenido %}
+  <div class="container">
+    <div class="row">
+      <h1 class="mt-2">Categorías</h1>
+      {% include 'layouts/_alert.html' %}
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Categoría</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'admin_create_categoria' %}">Nuevo</a>
+        </li>
+      </ul>
+      <div class="card">
+        {% comment %} <div class="card-header">
+          {% endcomment %}
+          {% comment %} <a href="{% url 'categorias.create' %}" class="btn btn-primary">Crear</a> {% endcomment %}
+          {% comment %}
+        </div> {% endcomment %}
+        <table class="table table-bordered mt-4">
+          <thead>
+            <tr>
+              <th scope="col">Nombre</th>
+              <th scope="col">URL</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for categoria in categorias %}
+              <tr>
+                <td>{{ categoria.nombre }}</td>
+                <td>{{ categoria.url }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}
